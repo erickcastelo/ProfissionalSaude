@@ -1,0 +1,18 @@
+<ion-view cache-view="false" view-title="Ver Consultas">
+  <ion-content>
+    <div class="card" ng-repeat="item in consultas">
+        <div class="item item-divider">
+          ID da Consulta: {{item.id}}
+        </div>
+        <div class="item">
+          Descrição: {{item.descricao}}
+        </div>
+        <div class="item">
+          Paciente: {{item.idPessoa.nome}}
+        </div>
+        <div class="item">
+          Situação: {{item.aceito}}
+        </div>
+    </div>
+  </ion-content>
+</ion-view>

@@ -1,25 +1,19 @@
-<ion-modal-view>
-  <ion-header-bar>
-    <h1 class="title">Login</h1>
-    <div class="buttons">
-      <button class="button button-clear" ng-click="closeLogin()">Close</button>
-    </div>
-  </ion-header-bar>
-  <ion-content>
+<ion-view view-title="Dashboard">
+  <ion-content class="padding">
     <form ng-submit="doLogin()">
-      <div class="list">
+      <div class="list list-inset">
         <label class="item item-input">
           <span class="input-label">Username</span>
-          <input type="text" ng-model="loginData.username">
+          <input type="text" class="input-login" ng-model="loginData.username">
         </label>
         <label class="item item-input">
           <span class="input-label">Password</span>
-          <input type="password" ng-model="loginData.password">
-        </label>
-        <label class="item">
-          <button class="button button-block button-positive" type="submit">Log in</button>
+          <input type="password" class="input-login" ng-model="loginData.password">
         </label>
       </div>
+      <label class="item">
+        <button class="button button-block button-positive" type="submit">Entrar</button>
+      </label>
     </form>
   </ion-content>
-</ion-modal-view>
+</ion-view>

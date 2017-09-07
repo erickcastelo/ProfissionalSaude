@@ -1,9 +1,28 @@
-<ion-view view-title="Playlists">
+<ion-view view-title="Profissional de Saúde">
   <ion-content>
-    <ion-list>
-      <ion-item ng-repeat="playlist in playlists" href="#/app/playlists/{{playlist.id}}">
-        {{playlist.title}}
-      </ion-item>
-    </ion-list>
+      <form ng-submit="cadastrar()">
+          <label class="item item-input item-floating-label">
+              <span class="input-label">Nome</span>
+              <input placeholder="Insira o Nome" type="text" ng-model="profissionalSaude.nome">
+          </label>
+          <label class="item item-input item-floating-label">
+            <span class="input-label">Login</span>
+            <input type="text" placeholder="Insira o Login" ng-model="profissionalSaude.login">
+          </label>
+          <label class="item item-input item-floating-label">
+            <span class="input-label">Senha</span>
+            <input type="password" placeholder="Insira a Senha" ng-model="profissionalSaude.senha">
+          </label>
+          <label class="item item-input item-floating-label">
+            <span class="input-label">Data Nascimento</span>
+            <input type="text" placeholder="Insira a Data de Nascimento"
+                   ng-model="dataSelecionada" ng-focus="openDatePiker()">
+          </label>
+          <label class="item item-input item-floating-label">
+            <span class="input-label">Fone</span>
+            <input type="text" placeholder="Insira o Telefone" ng-model="profissionalSaude.fone">
+          </label>
+          <button class="button button-positive button-full" type="submit">Cadastrar</button>
+      </form>
   </ion-content>
 </ion-view>

@@ -9,6 +9,19 @@ angular.module('starter.controllers', [])
   $scope.field = "";
   $scope.erro = false;
 
+  $scope.pageCreate = false;
+  $scope.pageEyes = true;
+
+  $scope.stade = function (stadePage) {
+      if (stadePage === 'c'){
+        $scope.pageCreate = false;
+        $scope.pageEyes = true;
+      }else{
+        $scope.pageCreate = true;
+        $scope.pageEyes = false;
+      }
+  };
+
   // Perform the login action when the user submits the login form
   $scope.doLogin = function () {
 

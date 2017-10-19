@@ -1,6 +1,6 @@
 angular.module('starter')
   .service('ProfissionalSaudeService', function ($http, $httpParamSerializer, $ionicLoading, $window) {
-      var url = 'http://192.168.43.240:8888/api/';
+      var url = 'http://192.168.1.115:8888//api/';
       //var token = 'Bearer' + 'u4qnlunMrSWqcyitTV06gH5C8ZlAaWar';
       return {
           salvarProfissionalSaude: function (profissionalSaude) {

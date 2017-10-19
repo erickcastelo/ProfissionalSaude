@@ -30,3 +30,11 @@ input[type="color"] {
 
 label .help-error {
   color: red; }
+
+.template-icons {
+  color: blue;
+  font-size: 22px; }
+
+.spacing-stade {
+  float: right;
+  font-size: 22px; }

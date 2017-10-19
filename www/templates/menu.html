@@ -14,21 +14,23 @@
 
   <ion-side-menu side="left">
     <ion-header-bar class="bar bar-positive">
-      <h1 class="title">Left</h1>
+      <h1 class="title">Opções</h1>
     </ion-header-bar>
     <ion-content>
       <ion-list>
         <ion-item menu-close ng-click="closer()">
-          Sair
+          <span class="icon-left ion-android-exit template-icons"></span>
+          <span>Sair</span>
         </ion-item>
-        <ion-item menu-close href="#/app/search">
-         Criar Consulta
+        <ion-item ng-click="stade('c')" menu-close href="#/app/search">
+          <span class="icon-left ion-clipboard template-icons"></span>
+          <span>Criar Consulta</span>
+          <span ng-hide="pageCreate" class="ion-android-done-all spacing-stade"></span>
         </ion-item>
-        <ion-item menu-close href="#/app/ver-consulta">
-          Ver Consultas
-        </ion-item>
-        <ion-item menu-close href="#/app/playlists">
-          Playlists
+        <ion-item ng-click="stade('v')" menu-close href="#/app/ver-consulta">
+          <span class="icon-left ion-clock template-icons"></span>
+          <span>Ver Consultas</span>
+          <span ng-hide="pageEyes" class="ion-android-done-all spacing-stade"></span>
         </ion-item>
       </ion-list>
     </ion-content>

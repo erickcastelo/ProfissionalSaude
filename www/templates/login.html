@@ -3,12 +3,18 @@
     <form ng-submit="doLogin()">
       <div class="list list-inset">
         <label class="item item-input">
-          <span class="input-label">Username</span>
-          <input type="text" class="input-login" ng-model="loginData.username">
+          <span class="input-label">Email</span>
+          <input type="email" class="input-email" ng-model="loginData.email">
+        </label>
+        <label>
+            <span ng-show="erro" class="help-error">{{error['email']}}</span>
         </label>
         <label class="item item-input">
           <span class="input-label">Password</span>
           <input type="password" class="input-login" ng-model="loginData.password">
+        </label>
+        <label>
+            <p ng-show="erro" class="help-error">{{error['password']}}</p>
         </label>
       </div>
       <label class="item">

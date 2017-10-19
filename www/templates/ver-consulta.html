@@ -2,17 +2,32 @@
   <ion-content>
     <div class="card" ng-repeat="item in consultas">
         <div class="item item-divider">
-          ID da Consulta: {{item.id}}
+          ID da Consulta: {{item.codigo}}
         </div>
         <div class="item">
           Descrição: {{item.descricao}}
         </div>
         <div class="item">
-          Paciente: {{item.idPessoa.nome}}
+          Paciente: {{item.paciente.nome}}
         </div>
         <div class="item">
-          Situação: {{item.aceito}}
+          Situação: {{item.situacao === 'p' ? 'Pendente' : 'Aprovado'}}
         </div>
+        <div class="item">
+          <button class="button button-positive esconder-botao"
+                  ng-click="verificaSolicitacao(item.situacao)" ng-hide="myCheck">
+            Solicitar Exame
+          </button>
+          <div ng-hide="escondido">
+            <ion-list>
+              <ion-radio ng-model="tipoExame" ng-value="'L'" ng-click="marcaExame('L', item)">Exame Laboratorial</ion-radio>
+              <ion-radio ng-model="tipoExame" ng-value="'A'" ng-click="marcaExame('A', item)">Exame Imagem</ion-radio>
+            </ion-list>
+          </div>
+        </div>
+    </div>
+    <div ng-hide="consultaVazia" class="bar-assertive">
+        <h4>Nenhuma consulta marcada</h4>
     </div>
   </ion-content>
 </ion-view>

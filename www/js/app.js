@@ -61,6 +61,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-datepicker'])
       }
     })
 
+    .state('app.solicita-exame', {
+      url: '/solicita-exame/:codigoConsulta',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/solicita-exame.html',
+          controller: 'ExameCtrl'
+        }
+      }
+    })
+
   .state('login', {
     url: '/login',
     templateUrl: 'templates/login.html',

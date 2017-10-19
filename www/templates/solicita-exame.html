@@ -1,0 +1,15 @@
+<ion-view cache-view="false" view-title="Solicitar Exame">
+  <ion-content>
+    <ul class = "list" ng-repeat="item in exames">
+      <li class = "item item-checkbox  checkbox-calm">
+        {{item.nome}}
+        <label class = "checkbox">
+          <input type = "checkbox" name={{item.nome}}
+                 ng-model="valueExames[item.numero]"
+                 ng-change="estadoCheckBox(valueExames[item.numero], item.numero)"/>
+        </label>
+      </li>
+    </ul>
+    <button type="button" class="bar bar-positive button-full" ng-click="solicitarExame()">Solicitar</button>
+  </ion-content>
+</ion-view>

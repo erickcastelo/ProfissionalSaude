@@ -1,27 +1,88 @@
 <ion-view view-title="Profissional de Saúde">
   <ion-content>
     <form ng-submit="cadastrar()">
+
+      <div class="list" style="margin-top: 18px;">
+        <label class="item item-input item-select">
+          <div class="input-label" style="color: #9e9e9e;">
+            PAÍS
+          </div>
+          <select ng-model="profissionalSaude.codpais">
+            <option value=""></option>
+            <option ng-repeat="pais in paises" value="{{pais.codigo}}">{{pais.nome}}</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="list" style="margin-top: 18px;">
+        <label class="item item-input item-select">
+          <div class="input-label" style="color: #9e9e9e;">
+            PROFISSÃO
+          </div>
+          <select ng-model="profissionalSaude.codprofissao">
+            <option value=""></option>
+            <option ng-repeat="profissao in profissoes"
+                    value="{{profissao.codigo}}">{{profissao.nome}}</option>
+          </select>
+        </label>
+      </div>
+
+      <label class="item item-input item-floating-label">
+        <span class="input-label">Cpf</span>
+        <input placeholder="CPF" type="number" ng-model="profissionalSaude.cpf">
+        <p ng-show="erro" class="help-error">{{error['cpf']}}</p>
+      </label>
+
+      <label class="item item-input item-floating-label">
+        <span class="input-label">Rg</span>
+        <input placeholder="RG" type="number" ng-model="profissionalSaude.rg">
+        <p ng-show="erro" class="help-error">{{error['rg']}}</p>
+      </label>
+
+      <label class="item item-input item-floating-label">
+        <span class="input-label">Registro</span>
+        <input placeholder="REGISTRO" type="text" ng-model="profissionalSaude.registro">
+        <p ng-show="erro" class="help-error">{{error['registro']}}</p>
+      </label>
+
       <label class="item item-input item-floating-label">
         <span class="input-label">Nome</span>
-        <input placeholder="Insira o Nome" type="text" ng-model="profissionalSaude.nome">
+        <input placeholder="NOME" type="text" ng-model="profissionalSaude.nome">
+        <p ng-show="erro" class="help-error">{{error['nome']}}</p>
       </label>
-      <label class="item item-input item-floating-label">
-        <span class="input-label">Login</span>
-        <input type="text" placeholder="Insira o Login" ng-model="profissionalSaude.login">
-      </label>
-      <label class="item item-input item-floating-label">
-        <span class="input-label">Senha</span>
-        <input type="password" placeholder="Insira a Senha" ng-model="profissionalSaude.senha">
-      </label>
+
       <label class="item item-input item-floating-label">
         <span class="input-label">Data Nascimento</span>
-        <input type="text" placeholder="Insira a Data de Nascimento"
+        <input type="text" placeholder="DT. Nascimento"
                ng-model="dataSelecionada" ng-focus="openDatePiker()">
+        <p ng-show="erro" class="help-error">{{error['datanascimento']}}</p>
       </label>
+
       <label class="item item-input item-floating-label">
         <span class="input-label">Fone</span>
-        <input type="text" placeholder="Insira o Telefone" ng-model="profissionalSaude.fone">
+        <input type="number" placeholder="TELEFONE" ng-model="profissionalSaude.fone">
+        <p ng-show="erro" class="help-error">{{error['fone']}}</p>
       </label>
+
+      <label class="item item-input item-floating-label">
+        <span class="input-label">Email</span>
+        <input placeholder="EMAIL" type="text" ng-model="profissionalSaude.email">
+        <p ng-show="erro" class="help-error">{{error['email']}}</p>
+      </label>
+
+      <label class="item item-input item-floating-label">
+        <span class="input-label">Senha</span>
+        <input type="password" placeholder="SENHA" ng-model="profissionalSaude.senha">
+        <p ng-show="erro" class="help-error">{{error['senha']}}</p>
+      </label>
+
+      <label class="item item-input item-floating-label">
+        <span class="input-label">Confirmar senha</span>
+        <input type="password" placeholder="CONFIRMAR SENHA"
+               ng-model="profissionalSaude.confirmPassword">
+        <p ng-show="erro" class="help-error">{{error['confirmPassword']}}</p>
+      </label>
+
       <button class="button button-positive button-full" type="submit">Cadastrar</button>
     </form>
   </ion-content>

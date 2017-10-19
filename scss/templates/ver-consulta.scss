@@ -1,0 +1,16 @@
+$color: transparent;
+
+.esconder-botao {
+  transition: all linear 0.5s;
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+.ng-hide {
+  height: 0;
+  width: 0;
+  background-color: $color;
+  top:-200px;
+  left: 200px;
+}

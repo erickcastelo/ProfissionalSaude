@@ -1,10 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<ion-view view-title="Configurações">
+  <ion-content class="padding">
+    <div class="list list-inset">
+      <label class="item item-input">
+        <i class="icon ion-search placeholder-icon"></i>
+        <input type="search" ng-model="filtro" placeholder="Search">
+      </label>
+    </div>
 
-</body>
-</html>
+    <div class="list fade" ng-repeat="paciente in pacientes | filter: filtro">
+      <a class="item item-avatar" href="#">
+        <img src="{{paciente.foto === null ? fotoApi + 'usuarioPadrao.jpeg' : paciente.foto}}">
+        <h2>{{paciente.nome}}</h2>
+        <p>{{paciente.cpf}}</p>
+      </a>
+    </div>
+  </ion-content>
+</ion-view>

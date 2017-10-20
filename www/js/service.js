@@ -1,6 +1,6 @@
 angular.module('starter')
-  .service('ProfissionalSaudeService', function ($http, $httpParamSerializer, $ionicLoading, $window) {
-      var url = 'http://192.168.1.115:8888/api/';
+  .service('ProfissionalSaudeService', function ($http, $httpParamSerializer, $ionicLoading, $window, NameApi) {
+      var url = NameApi.getEnderecoApi();
       //var token = 'Bearer' + 'u4qnlunMrSWqcyitTV06gH5C8ZlAaWar';
       return {
           salvarProfissionalSaude: function (profissionalSaude) {
@@ -92,6 +92,16 @@ angular.module('starter')
               method : 'post',
               data : $httpParamSerializer(exames),
               url : url + 'exame/solicitar-exame',
+              headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+            }).then(function (value) {
+              return value;
+            });
+          },
+
+          pacientes: function () {
+            return $http({
+              method : 'post',
+              url : url + 'paciente/list-pacientes',
               headers : {'Content-Type': 'application/x-www-form-urlencoded'}
             }).then(function (value) {
               return value;

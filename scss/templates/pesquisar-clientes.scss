@@ -1,0 +1,23 @@
+@mixin efeito-pesquisa($size){
+  -moz-transform: scale($size);
+  -webkit-transform: scale($size);
+  -ms-transform: scale($size);
+  -o-transform: scale($size);
+  transform: scale($size);
+}
+
+@mixin efeito-transition($size){
+  -moz-transition:transform $size;
+  -webkit-transition:transform $size;
+  -ms-transition:transform $size;
+  -o-transition:transform $size;
+  transition:transform $size;
+}
+
+.fade.ng-leave-active {
+ @include efeito-pesquisa(0.1)
+}
+
+.fade{
+  @include efeito-transition(0.8s)
+}

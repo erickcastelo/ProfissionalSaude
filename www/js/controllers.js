@@ -277,4 +277,20 @@ angular.module('starter.controllers', [])
 
         });
     };
+})
+
+.controller('PacienteCtrl', function ($scope, ProfissionalSaudeService, NameApi) {
+
+  $scope.pacientes = [];
+  $scope.filtro = '';
+  $scope.fotoApi = NameApi.getEnderecoImagem();
+
+  ProfissionalSaudeService.pacientes()
+    .then(function (value) {
+      $scope.pacientes = value.data;
+      console.log($scope.pacientes);
+    }, function (error) {
+      console.log(error);
+    });
 });
+

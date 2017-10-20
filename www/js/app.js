@@ -81,6 +81,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-datepicker', '
       }
     })
 
+    .state('app.pesquisar-clientes', {
+      url: '/pesquisar-clientes',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/configuracoes/pesquisar-clientes.html',
+          controller: 'PacienteCtrl'
+        }
+      }
+    })
+
   .state('login', {
     url: '/login',
     templateUrl: 'templates/login.html',

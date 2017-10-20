@@ -71,6 +71,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-datepicker', '
       }
     })
 
+    .state('app.configuracoes', {
+      url: '/configuracoes',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/configuracoes/configuracoes.html',
+          //controller: 'PlaylistsCtrl'
+        }
+      }
+    })
+
   .state('login', {
     url: '/login',
     templateUrl: 'templates/login.html',
@@ -121,6 +131,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-datepicker', '
       }
     }
   });
+
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/tab/login');
 

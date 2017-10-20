@@ -1,11 +1,13 @@
-label .efeito-letra{
-  font-size: 13px;
+@mixin efeito-transicao($size){
+  font-size: $size;
   transition-property: font-size;
   transition-duration: 0.5s;
 }
 
+label .efeito-letra{
+  @include efeito-transicao(13px);
+}
+
 label .volta-letra{
-  font-size: 16px;
-  transition-property: font-size;
-  transition-duration: 0.5s;
+  @include efeito-transicao(16px);
 }

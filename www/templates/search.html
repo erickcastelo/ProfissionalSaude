@@ -1,8 +1,10 @@
 <ion-view view-title="Criar Consulta">
     <ion-content>
       <div class="list list-inset">
-        <label class="item item-input">
-          <input ui-mask="999.999.999-99" type="text" ng-model="paciente.cpf"/>
+        <label class="item item-input item-stacked-label">
+          <span ng-class="ativo" class="input-label">CPF do Paciente</span>
+          <input  ng-focus="efeitoLetra('e')" ng-blur="efeitoLetra('t')" ui-mask="999.999.999-99"
+                 type="text" ng-model="paciente.cpf"/>
         </label>
         <button ng-click="finalizarConsulta()"
                 class="button button-outline button-positive button-block">

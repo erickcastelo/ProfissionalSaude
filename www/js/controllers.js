@@ -136,8 +136,8 @@ angular.module('starter.controllers', [])
 .controller('ConsultaController', function($scope, $stateParams, $ionicPopup,
                                            ProfissionalSaudeService) {
     $scope.paciente = {};
-    $scope.finalizarConsulta = function () {
 
+    $scope.finalizarConsulta = function () {
       var myPopup = $ionicPopup.show({
         template: '<input type="password" ng-model="paciente.senha" placeholder="senha"> <br>' +
         '<input type="text" ng-model="paciente.descricao" placeholder="descrição">',
@@ -181,6 +181,13 @@ angular.module('starter.controllers', [])
       $scope.paciente.senha = null;
       $scope.paciente.descricao = null;
     };
+
+    $scope.efeitoLetra = function (estadoEfeito) {
+      if (estadoEfeito === 'e')
+          $scope.ativo = 'efeito-letra';
+      else
+          $scope.ativo = 'volta-letra';
+    };
 })
 
 .controller('ConsultaCtrl', function ($scope, $http, ProfissionalSaudeService, $state, $ionicPopup) {
@@ -191,6 +198,7 @@ angular.module('starter.controllers', [])
 
   ProfissionalSaudeService.consultas().then(function (value) {
     $scope.consultas = value.data;
+    console.log($scope.consultas);
     $scope.consultaVazia = $scope.consultas.length;
   }, function (error) {
     console.log(error);

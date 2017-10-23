@@ -1,7 +1,8 @@
 angular.module('starter.controllers', [])
 
 .controller('AppCtrl', function($scope, $ionicModal,
-                                ProfissionalSaudeService, $ionicPopup, $state, $window, $location) {
+                                ProfissionalSaudeService, $ionicPopup, $state, $window,
+                                $location, $rootScope) {
 
   // Form data for the login modal
   $scope.loginData = {};
@@ -11,6 +12,13 @@ angular.module('starter.controllers', [])
 
   $scope.pageCreate = false;
   $scope.pageEyes = true;
+  $rootScope.imagePerfil = {};
+  ProfissionalSaudeService.profissional()
+    .then(function (value) {
+      $rootScope.imagePerfil = value.data.foto;
+    }, function (error) {
+      console.log(error);
+    });
 
   $scope.stade = function (stadePage) {
       if (stadePage === 'c'){
@@ -292,5 +300,50 @@ angular.module('starter.controllers', [])
     }, function (error) {
       console.log(error);
     });
+})
+
+.controller('ConfiguracoesCtrl', function ($scope, $cordovaCamera, $ionicPopup,
+                                           ProfissionalSaudeService, $rootScope) {
+
+  $scope.abriImagens = function () {
+    var tipo = '';
+    var confirmPopup = $ionicPopup.confirm({
+      title: 'Escolha uma das opções',
+      template: 'Deseja acessar a câmera? (Se não acessará a galeria)'
+    });
+
+    confirmPopup.then(function(res) {
+      if(res) {
+        tipo = Camera.PictureSourceType.CAMERA;
+      } else {
+        tipo = Camera.PictureSourceType.SAVEDPHOTOALBUM;
+      }
+      var options = {
+        quality: 80,
+        destinationType: Camera.DestinationType.DATA_URL,
+        sourceType: tipo,
+        allowEdit: true,
+        encodingType: Camera.EncodingType.JPEG,
+        targetWidth: 100,
+        targetHeight: 100,
+        popoverOptions: CameraPopoverOptions,
+        saveToPhotoAlbum: false,
+        correctOrientation:true
+      };
+
+      $cordovaCamera.getPicture(options).then(function(imageData) {
+        var image = "data:image/jpeg;base64," + imageData;
+        ProfissionalSaudeService.salvarFoto(image)
+          .then(function (value) {
+            $rootScope.imagePerfil = value.data;
+          }, function (error) {
+            console.log(error);
+          });
+      }, function(err) {
+        alert('Algo inesperado aconteceu');
+      });
+
+    });
+  };
 });
 

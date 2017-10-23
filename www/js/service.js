@@ -106,6 +106,31 @@ angular.module('starter')
             }).then(function (value) {
               return value;
             });
-          }
+          },
+
+          salvarFoto: function (foto) {
+            return $http({
+              method : 'post',
+              data : $httpParamSerializer({imagem: foto}),
+              url : url + 'profissional-saude/salvar-foto',
+              headers : {
+                'Content-Type': 'application/x-www-form-urlencoded'
+              }
+            }).then(function (value) {
+              return value;
+            });
+          },
+
+        profissional: function () {
+          return $http({
+            method : 'get',
+            url : url + 'profissional-saude/get-profissional',
+            headers : {
+              'Content-Type': 'application/x-www-form-urlencoded'
+            }
+          }).then(function (value) {
+            return value;
+          });
+        }
       }
   });

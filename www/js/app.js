@@ -140,6 +140,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-datepicker', '
         controller: 'PlaylistsCtrl'
       }
     }
+  })
+
+  .state('app.editar', {
+    url: '/editar/:id',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/cadastrar.html',
+        controller: 'PlaylistsCtrl'
+      }
+    }
   });
 
   // if none of the above states are matched, use this as the fallback

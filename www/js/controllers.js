@@ -63,7 +63,7 @@ angular.module('starter.controllers', [])
 })
 
 .controller('PlaylistsCtrl', function($scope, ionicDatePicker,
-                                      $ionicPopup, ProfissionalSaudeService, $state) {
+                                      $ionicPopup, ProfissionalSaudeService, $state, $stateParams) {
     $scope.profissionalSaude = {};
     $scope.dataSelecionada = "";
 
@@ -73,6 +73,8 @@ angular.module('starter.controllers', [])
     $scope.error = {};
     $scope.paises = [];
     $scope.profissoes = [];
+    $scope.selecionadoProfissao = [];
+    $scope.selecionadoPais = [];
 
     //lista de países
     ProfissionalSaudeService.paises()
@@ -90,36 +92,55 @@ angular.module('starter.controllers', [])
         console.log(error);
       });
 
-    $scope.cadastrar = function () {
+    if ($stateParams.id){
+      ProfissionalSaudeService.profissional()
+        .then(function (value) {
+          $scope.profissionalSaude = value.data;
+          $scope.profissionalSaude.fone = parseInt(value.data.fone);
+          $scope.profissionalSaude.cpf = parseInt(value.data.cpf);
+          $scope.profissionalSaude.registro = parseInt(value.data.registro);
+          $scope.profissionalSaude.rg = parseInt(value.data.rg);
+          $scope.profissionalSaude.confirmPassword = value.data.senha;
+          $scope.dataSelecionada = parseInt(new Date(value.data.datanascimento));
+
+          $scope.selecionadoProfissao[value.data.codprofissao] = true;
+          $scope.selecionadoPais[value.data.codpais] = true;
+        }, function (error) {
+          console.log(error);
+        });
+    }else{
+      $scope.cadastrar = function () {
         var data = new Date();
         var cpf = $scope.profissionalSaude.cpf;
         $scope.profissionalSaude.numero = data.getFullYear() + "-" + cpf + "-PR";
         ProfissionalSaudeService.salvarProfissionalSaude($scope.profissionalSaude)
           .then(function (value) {
-              $ionicPopup.alert({
-                title: 'Sucesso!',
-                template: 'Seu cadastro com efetuado com exito'
-              });
-              console.log(value);
-              $scope.profissionalSaude = {};
-              $scope.dataSelecionada = {};
-              $scope.erro = false;
+            $ionicPopup.alert({
+              title: 'Sucesso!',
+              template: 'Seu cadastro com efetuado com exito'
+            });
+            console.log(value);
+            $scope.profissionalSaude = {};
+            $scope.dataSelecionada = {};
+            $scope.erro = false;
 
-              $state.go('tab.login');
+            $state.go('tab.login');
           }, function (error) {
-              console.log(error);
-              $ionicPopup.alert({
-                title: 'Erro!',
-                template: error.statusText === '' ? 'Erro no servidor' : error.statusText
-              });
+            console.log(error);
+            $ionicPopup.alert({
+              title: 'Erro!',
+              template: error.statusText === '' ? 'Erro no servidor' : error.statusText
+            });
 
-              $scope.erro = true;
-              $scope.error = {};
-              angular.forEach(error.data, function (erroItem) {
-                $scope.error[erroItem.field] = erroItem.message;
-              });
+            $scope.erro = true;
+            $scope.error = {};
+            angular.forEach(error.data, function (erroItem) {
+              $scope.error[erroItem.field] = erroItem.message;
+            });
           })
-    };
+      };
+
+    }
 
     $scope.openDatePiker = function () {
         var configuracao = {

@@ -63,7 +63,8 @@ angular.module('starter.controllers', [])
 })
 
 .controller('PlaylistsCtrl', function($scope, ionicDatePicker,
-                                      $ionicPopup, ProfissionalSaudeService, $state, $stateParams) {
+                                      $ionicPopup, ProfissionalSaudeService, $state,
+                                      $ionicHistory, $stateParams) {
     $scope.profissionalSaude = {};
     $scope.dataSelecionada = "";
 
@@ -73,8 +74,7 @@ angular.module('starter.controllers', [])
     $scope.error = {};
     $scope.paises = [];
     $scope.profissoes = [];
-    $scope.selecionadoProfissao = [];
-    $scope.selecionadoPais = [];
+    $scope.fieldCpf = 0;
 
     //lista de países
     ProfissionalSaudeService.paises()
@@ -93,6 +93,7 @@ angular.module('starter.controllers', [])
       });
 
     if ($stateParams.id){
+      $scope.fieldCpf = 1;
       ProfissionalSaudeService.profissional()
         .then(function (value) {
           $scope.profissionalSaude = value.data;
@@ -103,13 +104,46 @@ angular.module('starter.controllers', [])
           $scope.profissionalSaude.confirmPassword = value.data.senha;
           $scope.dataSelecionada = parseInt(new Date(value.data.datanascimento));
 
-          $scope.selecionadoProfissao[value.data.codprofissao] = true;
-          $scope.selecionadoPais[value.data.codpais] = true;
+          var data = new Date($scope.profissionalSaude.datanascimento);
+          var dataFormatada = ("0" + (data.getDate()+1)).substr(-2) + "/"  + ("0" + (data.getMonth() + 1)).substr(-2) + "/" + data.getFullYear();
+          $scope.dataSelecionada = dataFormatada;
         }, function (error) {
           console.log(error);
         });
-    }else{
-      $scope.cadastrar = function () {
+    }
+
+    $scope.salvar = function () {
+      if ($stateParams.id){
+        ProfissionalSaudeService.alterar($scope.profissionalSaude)
+          .then(function (value) {
+            if (value.data){
+              $ionicPopup.alert({
+                title: 'Sucesso!',
+                template: 'Alterado com Sucesso!'
+              });
+
+              $ionicHistory.nextViewOptions({
+                disableBack: true
+              });
+
+              $scope.profissionalSaude = {};
+              $state.go('app.configuracoes');
+            }else{
+              alert('Erro na hora de cadastrar');
+            }
+          }, function (error) {
+            $ionicPopup.alert({
+              title: 'Erro!',
+              template: error.statusText === '' ? 'Erro no servidor' : error.statusText
+            });
+            console.log(error);
+            $scope.erro = true;
+            $scope.error = {};
+            angular.forEach(error.data, function (erroItem) {
+              $scope.error[erroItem.field] = erroItem.message;
+            });
+          })
+      }else{
         var data = new Date();
         var cpf = $scope.profissionalSaude.cpf;
         $scope.profissionalSaude.numero = data.getFullYear() + "-" + cpf + "-PR";
@@ -138,9 +172,10 @@ angular.module('starter.controllers', [])
               $scope.error[erroItem.field] = erroItem.message;
             });
           })
-      };
+      }
+    };
 
-    }
+
 
     $scope.openDatePiker = function () {
         var configuracao = {
@@ -356,9 +391,18 @@ angular.module('starter.controllers', [])
         var image = "data:image/jpeg;base64," + imageData;
         ProfissionalSaudeService.salvarFoto(image)
           .then(function (value) {
-            $rootScope.imagePerfil = value.data;
+            if (value.data !== null){
+              $ionicPopup.alert({
+                title: 'Sucesso!',
+                template: 'Foto Atualizada!'
+              });
+              $rootScope.imagePerfil = value.data;
+            }
           }, function (error) {
-            console.log(error);
+            $ionicPopup.alert({
+              title: 'Erro!',
+              template: 'O seguinte erro foi encontrado: ' + error
+            });
           });
       }, function(err) {
         alert('Algo inesperado aconteceu');

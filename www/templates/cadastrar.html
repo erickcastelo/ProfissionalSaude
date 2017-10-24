@@ -1,38 +1,35 @@
 <ion-view view-title="Profissional de Saúde">
   <ion-content>
-    <form ng-submit="cadastrar()">
-
-      <div class="list" style="margin-top: 18px;">
-        <label class="item item-input item-select">
-          <div class="input-label" style="color: #9e9e9e;">
-            PAÍS
-          </div>
-          <select ng-model="profissionalSaude.codpais">
-            <option value=""></option>
-            <option ng-repeat="pais in paises"
-                    ng-selected="selecionadoPais[pais.codigo]"
-                    value="{{pais.codigo}}">{{pais.nome}}</option>
-          </select>
-        </label>
-      </div>
+    <form ng-submit="salvar()">
 
       <div class="list" style="margin-top: 18px;">
         <label class="item item-input item-select">
           <div class="input-label" style="color: #9e9e9e;">
             PROFISSÃO
           </div>
-          <select ng-model="profissionalSaude.codprofissao">
-            <option value=""></option>
-            <option ng-repeat="profissao in profissoes"
-                    ng-selected="selecionadoProfissao[profissao.codigo]"
-                    value="{{profissao.codigo}}">{{profissao.nome}}</option>
+          <select name="profissao" ng-model="profissionalSaude.codprofissao"
+          ng-options="profissao.codigo as (profissao.nome | uppercase) for profissao in profissoes">
+            <option></option>
           </select>
         </label>
       </div>
 
+      <div class="list" style="margin-top: 18px;">
+        <label class="item item-input item-select">
+          <div class="input-label" style="color: #9e9e9e;">
+            PAÍS
+          </div>
+          <select name="pais" ng-model="profissionalSaude.codpais"
+                  ng-options="pais.codigo as (pais.nome | uppercase) for pais in paises">
+          </select>
+        </label>
+      </div>
+
+
+
       <label class="item item-input item-floating-label">
         <span class="input-label">Cpf</span>
-        <input placeholder="CPF" type="number" ng-model="profissionalSaude.cpf">
+        <input type="text" ng-model="profissionalSaude.cpf" ui-mask="999.999.999-99">
         <p ng-show="erro" class="help-error">{{error['cpf']}}</p>
       </label>
 
@@ -69,7 +66,7 @@
 
       <label class="item item-input item-floating-label">
         <span class="input-label">Email</span>
-        <input placeholder="EMAIL" type="text" ng-model="profissionalSaude.email">
+        <input placeholder="EMAIL" type="text" ng-disabled="fieldCpf" ng-model="profissionalSaude.email">
         <p ng-show="erro" class="help-error">{{error['email']}}</p>
       </label>
 
@@ -86,7 +83,7 @@
         <p ng-show="erro" class="help-error">{{error['confirmPassword']}}</p>
       </label>
 
-      <button class="button button-positive button-full" type="submit">Cadastrar</button>
+      <button class="button button-positive button-full" type="submit">Salvar</button>
     </form>
   </ion-content>
 </ion-view>

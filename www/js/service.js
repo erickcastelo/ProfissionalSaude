@@ -131,6 +131,19 @@ angular.module('starter')
           }).then(function (value) {
             return value;
           });
+        },
+
+        alterar: function (profissional) {
+          return $http({
+            method : 'post',
+            data : $httpParamSerializer(profissional),
+            url : url + 'profissional-saude/alterar',
+            headers : {
+              'Content-Type': 'application/x-www-form-urlencoded'
+            }
+          }).then(function (value) {
+            return value;
+          });
         }
       }
   });

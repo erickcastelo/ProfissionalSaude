@@ -19,7 +19,10 @@
     <ion-content>
       <ion-list>
         <div class="item item-avatar">
-          <img src="{{imagePerfil}}"/>
+
+          <img src="{{profissional.foto}}" ng-click="ampliaImagem()"/>
+          <h2>{{profissional.nome}}</h2>
+          <p>{{profissional.cpf}}</p>
         </div>
         <ion-item menu-close ng-click="closer()">
           <span class="icon-left ion-android-exit template-icons"></span>

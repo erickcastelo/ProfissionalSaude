@@ -15,10 +15,21 @@ angular.module('starter.controllers', [])
   $rootScope.imagePerfil = {};
   ProfissionalSaudeService.profissional()
     .then(function (value) {
-      $rootScope.imagePerfil = value.data.foto;
+      $rootScope.profissional = value.data;
     }, function (error) {
       console.log(error);
     });
+
+  $ionicModal.fromTemplateUrl('templates/my-modal.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.modal = modal;
+  });
+
+  $scope.ampliaImagem = function () {
+    //$scope.modal.show();
+  };
 
   $scope.stade = function (stadePage) {
       if (stadePage === 'c'){
@@ -224,6 +235,7 @@ angular.module('starter.controllers', [])
                       break;
                     case 2:
                       alert('Consulta Realizada com sucesso!');
+                      $scope.paciente = {};
                       break;
                     case 3:
                       alert('Erro na hora de realizar a consulta');
@@ -237,7 +249,8 @@ angular.module('starter.controllers', [])
                 }, function (error) {
                   console.log(error);
                 });
-              $scope.paciente = {};
+              $scope.paciente.descricao = '';
+              $scope.paciente.senha = '';
             }
           }
         ]
@@ -280,7 +293,7 @@ angular.module('starter.controllers', [])
     //   $scope.escondido = false;
     // }
     $scope.myCheck = true;
-      $scope.escondido = false;
+    $scope.escondido = false;
   };
 
   $scope.marcaExame = function (tipo, consulta) {
@@ -292,7 +305,7 @@ angular.module('starter.controllers', [])
   }
 })
 
-.controller('ExameCtrl', function ($scope, $stateParams, ProfissionalSaudeService) {
+.controller('ExameCtrl', function ($scope, $stateParams, ProfissionalSaudeService, $ionicPopup) {
     $scope.codigoConsulta = $stateParams.codigoConsulta;
     $scope.classificacaoExames = [];
     $scope.valueExames = [];
@@ -336,9 +349,15 @@ angular.module('starter.controllers', [])
 
       ProfissionalSaudeService.solicitaExameLaboratorial(array)
         .then(function (value) {
-          console.log(value);
+          $ionicPopup.alert({
+                title: 'Sucesso!',
+                template: 'O exame foi solicitado com sucesso!'
+              });
         }, function (error) {
-
+          $ionicPopup.alert({
+            title: 'Erro!',
+            template: 'Acorreu um erro no servidor'
+          });
         });
     };
 })
@@ -396,7 +415,7 @@ angular.module('starter.controllers', [])
                 title: 'Sucesso!',
                 template: 'Foto Atualizada!'
               });
-              $rootScope.imagePerfil = value.data;
+              $rootScope.profissional.foto = value.data;
             }
           }, function (error) {
             $ionicPopup.alert({

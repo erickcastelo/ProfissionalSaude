@@ -2,13 +2,14 @@ angular.module('starter.controllers', [])
 
 .controller('AppCtrl', function($scope, $ionicModal,
                                 ProfissionalSaudeService, $ionicPopup, $state, $window,
-                                $location, $rootScope) {
+                                $location, $rootScope, NameApi) {
 
   // Form data for the login modal
   $scope.loginData = {};
   $scope.error = {};
   $scope.field = "";
   $scope.erro = false;
+  $scope.fotoApi = NameApi.getEnderecoImagem();
 
   $scope.pageCreate = false;
   $scope.pageEyes = true;
@@ -305,7 +306,8 @@ angular.module('starter.controllers', [])
   }
 })
 
-.controller('ExameCtrl', function ($scope, $stateParams, ProfissionalSaudeService, $ionicPopup) {
+.controller('ExameCtrl', function ($scope, $stateParams,
+                                   ProfissionalSaudeService, $ionicPopup, $state, $ionicHistory) {
     $scope.codigoConsulta = $stateParams.codigoConsulta;
     $scope.classificacaoExames = [];
     $scope.valueExames = [];
@@ -321,15 +323,10 @@ angular.module('starter.controllers', [])
 
     $scope.estadoCheckBox = function (checked, numeroExame) {
       if (checked){
-        var data = new Date();
-        var dataFormatada = ("0" + data.getDate()).substr(-2) + "/"  +
-          ("0" + (data.getMonth() + 1)).substr(-2) + "/" + data.getFullYear() +
-        " " + data.getHours() + ":" + data.getMinutes() + ":" + data.getSeconds();
         var exames = JSON.stringify([
           {
             numeroexamelaboratorial: numeroExame,
-            codigoconsulta: $scope.codigoConsulta,
-            datacriacao: dataFormatada
+            codigoconsulta: $scope.codigoConsulta
           }]);
 
         $scope.values.push(exames);
@@ -351,13 +348,18 @@ angular.module('starter.controllers', [])
         .then(function (value) {
           $ionicPopup.alert({
                 title: 'Sucesso!',
-                template: 'O exame foi solicitado com sucesso!'
+                template: 'O exame(s) foi solicitado com sucesso!'
               });
+          $state.go('app.search');
+          $ionicHistory.nextViewOptions({
+            disableBack: true
+          });
         }, function (error) {
           $ionicPopup.alert({
             title: 'Erro!',
             template: 'Acorreu um erro no servidor'
           });
+          console.log(error);
         });
     };
 })

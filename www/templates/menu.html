@@ -20,7 +20,8 @@
       <ion-list>
         <div class="item item-avatar">
 
-          <img src="{{profissional.foto}}" ng-click="ampliaImagem()"/>
+          <img src="{{profissional.foto === null ? fotoApi + 'usuarioPadrao.jpeg' : profissional.foto}}"
+               ng-click="ampliaImagem()"/>
           <h2>{{profissional.nome}}</h2>
           <p>{{profissional.cpf}}</p>
         </div>
